@@ -57,14 +57,6 @@
     src: pg_hba.conf
     dest: /var/lib/pgsql/16/data/pg_hba.conf
 
-- name: Copy schema file
-  ansible.builtin.template:
-    src: setup.sql
-    dest: /tmp/setup.sql
-
-- name: Load schema
-  ansible.builtin.shell: sudo -u postgres /usr/pgsql-16/bin/psql < /tmp/setup.sql
-
 - name: Daemon reload and start the service
   ansible.builtin.systemd:
     name: postgresql-16
@@ -72,6 +64,12 @@
     state: restarted
     enabled: yes
 
+- name: Copy schema file
+  ansible.builtin.template:
+    src: setup.sql
+    dest: /tmp/setup.sql
 
+- name: Load schema
+  ansible.builtin.shell: sudo -u postgres /usr/pgsql-16/bin/psql < /tmp/setup.sql
 
 

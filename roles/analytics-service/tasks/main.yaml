@@ -17,9 +17,8 @@
   args:
     chdir: /app
 
-- name: Include pre-reqs
+- name: Include systemd
   ansible.builtin.include_role:
     name: common
-    tasks_from: pre-reqs
-
+    tasks_from: systemd_setup
 

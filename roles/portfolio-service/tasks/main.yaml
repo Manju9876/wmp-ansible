@@ -1,0 +1,25 @@
+- name: Install Java
+  ansible.builtin.dnf:
+    name: java-21-openjdk-devel
+    state: present
+
+- name: Include pre-reqs
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: pre-reqs
+
+- name: Build Application
+  ansible.builtin.shell: chmod +x gradlew && ./gradlew bootJar --no-daemon -x test
+  args:
+    chdir: /app
+
+- name: Copy Jar File
+  ansible.builtin.copy:
+    src: /app/build/libs/*.jar
+    dest: /app/{{ component_name }}.jar
+
+- name: Include systemd
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: systemd_setup
+

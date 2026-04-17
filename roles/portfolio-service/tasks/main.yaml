@@ -13,10 +13,8 @@
   args:
     chdir: /app
 
-- name: Copy Jar File
-  ansible.builtin.copy:
-    src: /app/build/libs/*.jar
-    dest: /app/{{ component_name }}.jar
+- name: Copy jar file
+  ansible.builtin.shell: cp /app/build/libs/*.jar /app/portfolio-service.jar
 
 - name: Include systemd
   ansible.builtin.include_role:

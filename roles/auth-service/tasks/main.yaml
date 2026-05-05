@@ -2,14 +2,14 @@
   ansible.builtin.dnf:
     name: golang
     state: present
-
-- name: Ensure GOPATH directory exists
-  ansible.builtin.file:
-    path: /root/go
-    state: directory
-    owner: root
-    group: root
-    mode: '0755'
+#
+#- name: Ensure GOPATH directory exists
+#  ansible.builtin.file:
+#    path: /root/go
+#    state: directory
+#    owner: root
+#    group: root
+#    mode: '0755'
 
 - name: Include pre-reqs
   ansible.builtin.include_role:
@@ -20,9 +20,9 @@
   ansible.builtin.shell: CGO_ENABLED=0 go build -o auth-service ./cmd/server
   args:
     chdir: /app
-  environment:
-    GOPATH: /root/go
-    PATH: "/usr/local/go/bin:{{ ansible_env.PATH }}"
+#  environment:
+#    GOPATH: /root/go
+#    PATH: "/usr/local/go/bin:{{ ansible_env.PATH }}"
 
 - name: Include systemd
   ansible.builtin.include_role:

@@ -2,7 +2,7 @@
   hosts: all
   become: true
   roles:
-    - "{{ COMPONENT }}"
+    - "{{ component_name }}"
 
 
 

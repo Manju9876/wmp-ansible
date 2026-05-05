@@ -3,6 +3,11 @@
     name: golang
     state: present
 
+- name: Set Go env
+  ansible.builtin.lineinfile:
+    path: /etc/profile
+    line: 'export GOPATH=/root/go'
+
 - name: Include pre-reqs
   ansible.builtin.include_role:
     name: common
@@ -17,3 +22,4 @@
   ansible.builtin.include_role:
     name: common
     tasks_from: systemd_setup
+
